@@ -1,7 +1,7 @@
 {
   "name": "@mattinsler/format-jsonc",
   "description": "Consistent formatting for JSONC files",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -10,6 +10,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
+    "prepublish": "yarn clean && yarn build",
     "test": "jest"
   },
   "dependencies": {
