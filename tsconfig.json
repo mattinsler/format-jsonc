@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "CommonJS",
+    "skipLibCheck": true,
+    "strict": true,
+    "sourceMap": true,
+    "target": "ES5",
+
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": ["src/*"]
+}
