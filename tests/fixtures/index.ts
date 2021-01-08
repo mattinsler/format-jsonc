@@ -1,0 +1,8 @@
+import fs from 'fs';
+import path from 'path';
+
+export const fixtures = {
+  original: fs.readFileSync(path.join(__dirname, 'original.json'), 'utf-8'),
+  format: fs.readFileSync(path.join(__dirname, 'format.json'), 'utf-8'),
+  formatSorted: fs.readFileSync(path.join(__dirname, 'format-sorted.json'), 'utf-8'),
+};

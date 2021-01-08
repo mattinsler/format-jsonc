@@ -1,3 +1,4 @@
+import { clone } from './clone';
 import { traverse } from './traverse';
 import { ASTArray, ASTObject } from './types';
 import { createPrintVisitor } from './print-visitor';
@@ -7,7 +8,7 @@ export function format(ast: ASTArray | ASTObject, transforms?: Transform[]): str
   const tokens: string[] = [];
 
   if (transforms) {
-    // should deep copy first
+    ast = clone(ast);
     applyTransforms(ast, transforms);
   }
   traverse(ast, createPrintVisitor(tokens));
