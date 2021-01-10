@@ -13,4 +13,16 @@
   "b": false,
 
   "a": "123",
+
+  "mixed-array": [
+    "foo",
+    true,
+    {},
+    [],
+    6,
+    "bar",
+    null,
+    false,
+    4,
+  ],
 }
