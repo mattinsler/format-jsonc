@@ -116,6 +116,8 @@ export function parse(content: string): ASTObject {
 
         if (isObjectProperty(stack[0])) {
           stack[0].value = arr;
+        } else if (isArray(stack[0])) {
+          stack[0].items.push(arr);
         } else {
           throw new Error(`ArrayExpression enter issue:\n${JSON.stringify(stack[0], null, 2)}`);
         }
