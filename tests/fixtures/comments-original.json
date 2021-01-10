@@ -1,0 +1,20 @@
+// top of file comment
+{
+  // ObjectProperty comment
+  "property": {
+    "array": [
+      // String comment
+      "string",
+      // Number comment
+      123,
+      // Null comment
+      null,
+      // Boolean comment
+      true,
+      // Object comment
+      {},
+      // Array comment
+      []
+    ]
+  }
+}

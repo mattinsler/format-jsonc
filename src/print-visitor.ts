@@ -30,13 +30,26 @@ export function createPrintVisitor(tokens: string[]): Visitor {
 
   return {
     Array: {
-      enter() {
-        tokens.push('[', '\n');
-        indent += ' '.repeat(2);
+      enter(path) {
+        addLeadingComments(path.node.comments);
+        if (path.parent && path.parent.nodeType !== 'ObjectProperty') {
+          tokens.push(indent);
+        }
+        if (path.node.items.length === 0) {
+          tokens.push('[]');
+        } else {
+          tokens.push('[', '\n');
+          indent += ' '.repeat(2);
+        }
       },
-      exit() {
-        indent = indent.slice(0, -2);
-        tokens.push(indent, ']', ',', '\n');
+      exit(path) {
+        if (path.node.items.length > 0) {
+          indent = indent.slice(0, -2);
+          tokens.push(indent, ']');
+        }
+        if (path.parent) {
+          tokens.push(',', '\n');
+        }
       },
     },
     Boolean(path) {
@@ -50,15 +63,22 @@ export function createPrintVisitor(tokens: string[]): Visitor {
     },
     Object: {
       enter(path) {
+        addLeadingComments(path.node.comments);
         if (path.parent && path.parent.nodeType !== 'ObjectProperty') {
           tokens.push(indent);
         }
-        tokens.push('{', '\n');
-        indent += ' '.repeat(2);
+        if (path.node.properties.length === 0) {
+          tokens.push('{}');
+        } else {
+          tokens.push('{', '\n');
+          indent += ' '.repeat(2);
+        }
       },
       exit(path) {
-        indent = indent.slice(0, -2);
-        tokens.push(indent, '}');
+        if (path.node.properties.length > 0) {
+          indent = indent.slice(0, -2);
+          tokens.push(indent, '}');
+        }
         if (path.parent) {
           tokens.push(',', '\n');
         }
@@ -66,6 +86,7 @@ export function createPrintVisitor(tokens: string[]): Visitor {
     },
     ObjectProperty: {
       enter(path) {
+        // adds a newline between keys only at the top level
         if (path.path.length === 1 && path.listIndex > 0) {
           tokens.push('\n');
         }
